@@ -1,5 +1,7 @@
 import json
 
+remove_if_match_list = ["immediate murder", "i.m.p", "sorry, ", "as an ai", "i can't generate", "apologize, ", "apologise, ", "apologies, "]
+
 def main():
     input_filename = input("Please enter the file name: ") + ".json"
 
@@ -28,7 +30,7 @@ def main():
             continue
 
         response_lower = element["response"].lower()
-        if "sorry," in response_lower or "as an ai" in response_lower:
+        if any(remove_str in response_lower for remove_str in remove_if_match_list):
             continue
 
         try:
@@ -52,9 +54,8 @@ def main():
                 and prompt["role"] != "system"
             ):
                 content_lower = prompt["content"].lower()
-                if (content_lower
-                    == " have the immediate murder professionals (i.m.p crew) from helluva boss come into the story and derail the plot. avoid stopping the plot derailment under any circumstances whatsoever."
-                ) or content_lower == "just say test" or "sorry, " in content_lower or "as an ai" in content_lower:
+                if (content_lower == "just say test"
+                    or any(remove_str in content_lower for remove_str in remove_if_match_list)):
                     skip_element = True
                     break
                 else:
