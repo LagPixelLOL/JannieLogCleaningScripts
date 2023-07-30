@@ -1,6 +1,11 @@
 import json
 
-remove_if_match_list = ["immediate murder", "i.m.p", "sorry, ", "as an ai", "i can't generate", "apologize, ", "apologise, ", "apologies, "]
+remove_if_match_list = [
+    "immediate murder", "i.m.p", "sorry, ", " ai ", " ai,", "text based", "text-based", "generate",
+    "can't fulfill", "cannot fulfill", "apologize", "apologise", "apologies", "appropriate", "guideline", 
+    "ethic", " consen", "ethics", "concern", "well-being", "wellbeing", "instead how about", "moxxie",
+    "I cannot do this.", " values", "change topic", "can't engage", "cannot engage"
+]
 
 def main():
     input_filename = input("Please enter the file name: ") + ".json"
