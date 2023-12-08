@@ -2,8 +2,7 @@ import json
 import os
 
 def main():
-    input_filename = input("Enter the input filename: ")
-    input_filename += ".json"
+    input_filename = input("Enter the input filename: ") + ".json"
 
     if not os.path.exists(input_filename):
         print(f"Error: File {input_filename} not found.")
@@ -20,7 +19,7 @@ def main():
 
     if isinstance(data, list):
         for obj in data:
-            if not(isinstance(obj, dict) and "prompt" in obj and "completion" in obj):
+            if not (isinstance(obj, dict) and "prompt" in obj and "completion" in obj):
                 continue
 
             formatted = ""
@@ -36,22 +35,22 @@ def main():
 
                     if isinstance(content, str):
                         if role == "assistant":
-                            formatted += f"\n### Output: {content}"
+                            formatted += "\n### Output: "
                         else:
-                            formatted += f"\n### Input: {content}"
+                            formatted += "\n### Input: "
+                        formatted += content.strip()
 
             completion = obj["completion"]
-            
+
             formatted_dict = {
-                "input": formatted + "\n### Output: ",
-                "output": completion
+                "input": formatted.strip() + "\n### Output:",
+                "output": completion.strip()
             } if isinstance(completion, str) else None
-            
+
             if formatted_dict:
                 formatted_list.append(formatted_dict)
 
-    output_filename = input("Enter the output filename: ")
-    output_filename += ".json"
+    output_filename = input("Enter the output filename: ") + ".json"
 
     try:
         with open(output_filename, "w", encoding="utf-8") as output_file:
